@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title>chat proyect</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"/>
+</head>
+<body>
+	
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">CHAT BAPRO</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="/nuevoUsuario">AltaUsuario</a>
+      <a class="nav-item nav-link" href="/modificacionUsuario">ModificacionUsuario</a>
+    </div>
+  </div>
+</nav>
+	
+	
+	<form th:action="@{/nuevoUsuario}" th:object="${usuario}" method="POST">
+	
+		<div class="form-group row">
+			<label for="nombre" class="col-sm-2 col-form-lab">Nombre</label>
+				<div class="col-sm-6">
+					<input type="text" th:field="*{nombre}" class="form-control"/>
+					<small class="form-text text-danger" ></small>
+				</div>
+		</div>
+	
+	
+		<div class="form-group row">
+			<label for="apellido" class="col-sm-2 col-form-lab">Apellido </label>
+			<div class="col-sm-6">
+				<input type="text" th:field="*{apellido}" class="form-control"/>
+				<small class="form-text text-danger"></small>
+			</div>
+		</div>
+	
+	
+	
+		<div class="form-group row">
+			<label for="correoElectronico" class="col-sm-2 col-form-lab">Email</label>
+			<div class="col-sm-6">
+				<input type="text" th:field="*{correoElectronico}" class="form-control"/>
+				<small class="form-text text-danger"></small>
+			</div>
+		</div>
+	
+	
+		<div class="form-group row">
+			<label for="nombreDeUsuario" class="col-sm-2 col-form-lab">Nombre de usuario </label>
+				<div class="col-sm-6">
+					<input type="text" th:field="*{nombreDeUsuario}" class="form-control"/>
+					<small class="form-text text-danger" ></small>
+				</div>
+		</div>
+		
+		<div class="form-group row">
+				<label for="fechaDeNacimiento" class="col-sm-2 col-form-lab">Fecha de nacimiento </label>
+				<div class="col-sm-6">
+					<input type="text" th:field="*{fechaDeNacimiento}" class="form-control"/>
+					<small class="form-text text-danger" ></small>
+				</div>
+		</div>
+	
+	
+	
+		<div class="form-group row">
+			<label for="fechaDeCreacionDeCuenta" class="col-sm-2 col-form-lab">Fecha de creacion de cuenta </label>
+				<div class="col-sm-6">
+					<input type="text" th:field="*{fechaDeCreacionDeCuenta}" class="form-control"/>
+					<small class="form-text text-danger" ></small>
+				</div>
+		</div>
+		
+	
+	
+	
+		<div class="form-group-row">
+			<div class="col-sm-6">
+				<input type="submit" value="crear Usuario"  class="btn btn-primary"/>
+			</div>
+		</div>
+	
+	
+	
+			
+	<input type="hidden" th:field="*{id}" />
+	
+	
+	</form>
+
+
+
+</body>
+</html>
