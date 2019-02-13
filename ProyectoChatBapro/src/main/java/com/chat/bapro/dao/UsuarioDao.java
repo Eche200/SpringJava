@@ -14,8 +14,10 @@ public interface UsuarioDao {
 	public void modificacionDeUsuario(Usuario usuario);
 	
 	//buscar un usuario
-	public UsuarioDto buscarUnUsuario(long id);
+	public Usuario buscarUnUsuario(long id);
 
+	//eliminar un usuario
+	public void eliminarUnUsuario(long id);
 	
 	//listar
 	public List<Usuario> retornarTodosLosUsuarios();

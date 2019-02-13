@@ -17,7 +17,8 @@
     <div class="navbar-nav">
       <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link" href="/nuevoUsuario">AltaUsuario</a>
-      <a class="nav-item nav-link" href="/modificacionUsuario">ModificacionUsuario</a>
+      <a class="nav-item nav-link" href="/elegirIdModificar">ModificacionUsuario</a>
+      <a class="nav-item nav-link" href="/elegirIdEliminar">Eliminar</a>
     </div>
   </div>
 </nav>
@@ -25,7 +26,7 @@
 
 	
 	
-	
+	<form th:action="@{/modificacionUsuario}" th:object="${usuarioDto}" method="POST">
 	
 	
 <div class="container">
@@ -33,32 +34,32 @@
 	<table>
 		<thead>
 			<tr>
-			<th>id</th>
+			
+			<th>nombre De Usuario</th>
 			<th>nombre</th>
 			<th>apellido</th>
-			<th>nombre De Usuario</th>
 			<th>correo Electronico</th>
 			<th>fecha De Creacion De Cuenta</th>
 			<th>fecha De Nacimiento</th>
 			</tr>	
 		</thead>
-		<tbody>
-			<tr th:each="usuarioDto: ${usuarioDto} ">
-				<td th:text="${usuarioDto.id}"></td>
-				<td th:text="${usuarioDto.nombre}"></td>
-				<td th:text="${usuarioDto.apellido}"></td>
-				<td th:text="${usuarioDto.nombreDeUsuario}"></td>
-				<td th:text="${usuarioDto.correoElectronico}"></td>
-				<td th:text="${usuarioDto.fechaDeCreacionDeCuenta}"></td>
-				<td th:text="${usuarioDto.fechaDeNacimiento}"></td>
-				<td ><a class="btn btn-primary" th:href="@{/modificacionUsuario/}+${usuarioDto.id}">Editar</a></td>
-				
-			</tr>
-		</tbody>
+		
 	</table>
 </div>		
-			
-	
+
+	<input th:value="${usuarioDto.nombreDeUsuario}" th:field="*{nombreDeUsuario}"/>
+	<input th:value="${usuarioDto.nombre}" th:field="*{nombre}"/>
+	<input th:value="${usuarioDto.apellido}" th:field="*{apellido}"/>
+	<input th:value="${usuarioDto.correoElectronico}" th:field="*{correoElectronico}"/>
+	<input th:value="${usuarioDto.fechaDeCreacionDeCuenta}" th:field="*{fechaDeCreacionDeCuenta}"/>
+	<input th:value="${usuarioDto.fechaDeNacimiento}" th:field="*{fechaDeNacimiento}"/>
+	<input type="hidden" th:value="${usuarioDto.id}" th:field="*{id}"/>	
+			<div class="form-group-row">
+			<div class="col-sm-6">
+				<input type="submit" value="modificar datos"  class="btn btn-primary"/>
+			</div>
+		</div>
+	</form>
 
 
 </body>

@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -105,29 +104,38 @@ public class CreacionDeCuentaController {
 	
 	//index fin
 	
-	//elegirId inicio
-	@GetMapping("/elegirId")
+	//elegirIdModificar inicio
+	@GetMapping("/elegirIdModificar")
 	public String modelViewElegirId (Map<String, Object> modelo)
 	{
 		UsuarioDto usuarioDto = new UsuarioDto();
 		modelo.put("usuarioDto",usuarioDto);
 		
-		return "elegirId";
+		return "elegirIdModificar";
 	}
 	
 	
-	@RequestMapping(value="/elegirId" , method=RequestMethod.POST)
-	public String metodoPostElegirId (@Valid UsuarioDto usuarioDto)
+	@RequestMapping(value="/elegirIdModificar" , method=RequestMethod.POST)
+	public String metodoPostElegirIdModificar (@Valid UsuarioDto usuarioDto)
 	{
 		
-		String retorno = "elegirId";
+		String retorno = "elegirIdModificar";
 		Map<String , Object> modelo = new HashMap<String, Object>();
-		UsuarioDto nuevoUsuarioDto = new UsuarioDto();
-		nuevoUsuarioDto = iUsuarioDao.buscarUnUsuario(usuarioDto.getIdSeleccionado());
+		Usuario nuevoUsuarioDto = null;
+		int numero= Integer.parseInt(usuarioDto.getIdSeleccionado());
+		nuevoUsuarioDto = iUsuarioDao.buscarUnUsuario(Long.parseLong(usuarioDto.getIdSeleccionado()));
 	
 		
 		if(nuevoUsuarioDto != null)
 		{
+			usuarioDto.setId(nuevoUsuarioDto.getId());
+			usuarioDto.setApellido(nuevoUsuarioDto.getApellido());
+			usuarioDto.setNombre(nuevoUsuarioDto.getNombre());
+			usuarioDto.setCorreoElectronico(nuevoUsuarioDto.getCorreoElectronico());
+			usuarioDto.setFechaDeCreacionDeCuenta(nuevoUsuarioDto.getFechaDeCreacionDeCuenta());
+			usuarioDto.setFechaDeNacimiento(nuevoUsuarioDto.getFechaDeNacimiento());
+			usuarioDto.setNombreDeUsuario(nuevoUsuarioDto.getNombreDeUsuario());
+			
 			modelo.put("usuarioDto", usuarioDto);
 			
 			
@@ -137,7 +145,45 @@ public class CreacionDeCuentaController {
 	}
 	
 	
-	//elegirId fin
+	//elegirIdModificar fin
+	
+	
+	
+	//eliminar usuario inicio
+	@RequestMapping(value="/elegirIdEliminar" , method= RequestMethod.POST)
+	public String metodoPostEliminarUsuario (@Valid UsuarioDto usuarioDto)
+	{
+		String retorno = "elegirIdEliminar";
+		if(usuarioDto != null)
+		{
+		
+			iUsuarioDao.eliminarUnUsuario(Long.parseLong(usuarioDto.getIdSeleccionado()));
+			retorno= "index";
+		}
+		
+		
+		
+	
+		return retorno;
+	}
+	
+	@GetMapping("/elegirIdEliminar")
+	public String modelViewElegirIdEliminar (Map<String, Object> modelo)
+	{
+		UsuarioDto usuarioDto = new UsuarioDto();
+		modelo.put("usuarioDto", usuarioDto);
+		
+		return "elegirIdEliminar";
+	}
+	
+	
+	
+	
+	
+	
+	//eliminar usuario fin
+	
+	
 	
 	//modificacion usuario inicio
 	@RequestMapping(value="/modificacionUsuario" , method= RequestMethod.POST)
@@ -153,7 +199,10 @@ public class CreacionDeCuentaController {
 			usuario.setFechaDeNacimiento(usuarioDto.getFechaDeNacimiento());
 			usuario.setNombre(usuarioDto.getNombre());
 			usuario.setNombreDeUsuario(usuarioDto.getNombreDeUsuario());
+			usuario.setId(usuarioDto.getId());
+			iUsuarioDao.modificacionDeUsuario(usuario);
 			
+			retorno = "index";
 			//FALTAN COSAS!!
 		}
 		
@@ -164,19 +213,15 @@ public class CreacionDeCuentaController {
 		return retorno;
 	}
 	
-	@GetMapping(value="modificacionUsuario/{id}")
-	public String modelViewModificacionUsuario(@PathVariable(value="id")long id ,
-			Map<String, Object> modelo)
+	@GetMapping(value="/modificacionUsuario")
+	public String modelViewModificacionUsuario(UsuarioDto usuarioDto,	Map<String, Object> modelo)
 	{
 		String retorno = "redirect:/";
-		UsuarioDto usuarioDto = new  UsuarioDto();
 		
-		if(id>0)
-		{
-			usuarioDto = iUsuarioDao.buscarUnUsuario(id);
+		
 			modelo.put("usuarioDto", usuarioDto);
 			retorno = "modificacionUsuario";
-		}
+		
 		
 		
 		

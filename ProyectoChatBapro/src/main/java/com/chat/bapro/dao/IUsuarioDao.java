@@ -26,21 +26,22 @@ public class IUsuarioDao implements UsuarioDao {
 		
 	}
 	
-	
+	@Transactional
 	public void modificacionDeUsuario(Usuario usuario)
 	{
+		entity.merge(usuario);
 		
 //falta		
 	}
 	
-	
-	public UsuarioDto buscarUnUsuario(long id)
+	@Transactional(readOnly= true)
+	public Usuario buscarUnUsuario(long id)
 	{
-		UsuarioDto retorno = null;
+		Usuario retorno = null;
 		if(id >= 0)
 		{
 			
-			retorno=entity.find(UsuarioDto.class, id);
+			retorno=entity.find(Usuario.class, id);
 		}
 		return retorno;
 	}
@@ -54,8 +55,14 @@ public class IUsuarioDao implements UsuarioDao {
 		return entity.createQuery("from Cliente").getResultList();
 	}
 
-
-	
+	@Transactional
+	public void eliminarUnUsuario(long id)
+	{
+		Usuario usuario = buscarUnUsuario(id);
+		entity.remove(usuario);
+		
+		
+	}
 	
 	
 

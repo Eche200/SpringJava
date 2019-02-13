@@ -12,17 +12,17 @@ public class UsuarioDto {
 	private String correoElectronico;
 	private String fechaDeNacimiento;
 	private String fechaDeCreacionDeCuenta;
-	private long idSeleccionado;
+	private String idSeleccionado;
 	
 	
 	
 	
 	
 
-	public long getIdSeleccionado() {
+	public String getIdSeleccionado() {
 		return idSeleccionado;
 	}
-	public void setIdSeleccionado(long idSeleccionado) {
+	public void setIdSeleccionado(String idSeleccionado) {
 		this.idSeleccionado = idSeleccionado;
 	}
 	public long getId() {
